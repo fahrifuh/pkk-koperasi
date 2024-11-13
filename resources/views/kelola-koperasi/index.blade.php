@@ -41,7 +41,11 @@
                             <td>{{ date('d/m/Y', strtotime($item['tgl_daftar'])) }}</td>
                             <td>
                                 <a href="{{ url('data-anggota/' . $item['id']). '/edit' }}" class="btn btn-warning btn-sm">Ubah</a>
-                                <a href="#" class="btn btn-danger btn-sm">Hapus</a>
+                                <form action="{{ url('data-anggota/' . $item['id']) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" name="submit" class="btn btn-danger">Hapus</button>
+                                </form>
                             </td>
                         </tr>
                         @php
