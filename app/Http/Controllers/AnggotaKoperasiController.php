@@ -119,7 +119,7 @@ class AnggotaKoperasiController extends Controller
         $contentArray = json_decode($content, true);
         if ($contentArray['status'] != true) {
             $err = $contentArray['data'];
-            return redirect()->to('data-anggota/edit')->withErrors($err)->withInput();
+            return redirect()->to('data-anggota/' . $id . '/edit')->withErrors($err)->withInput();
         } else {
             return redirect()->to('data-anggota')->with('success', 'Berhasil ubah data!');
         }
