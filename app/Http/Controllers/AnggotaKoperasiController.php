@@ -130,6 +130,16 @@ class AnggotaKoperasiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $client = new Client();
+        $url = "http://localhost:8000/api/data-anggota/$id";
+        $response = $client->request('DELETE', $url);
+        $content =  $response->getBody()->getContents();
+        $contentArray = json_decode($content, true);
+        if ($contentArray['status'] != true) {
+            $err = $contentArray['data'];
+            return redirect()->to('data-anggota')->withErrors($err)->withInput();
+        } else {
+            return redirect()->to('data-anggota')->with('success', 'Berhasil hapus data!');
+        }
     }
 }
