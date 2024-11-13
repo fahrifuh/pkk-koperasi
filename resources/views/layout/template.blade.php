@@ -16,7 +16,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #1D3D70;">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="#top">Start Bootstrap</a>
+        <a class="navbar-brand ps-3" href="#">Start Bootstrap</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars text-white"></i></button>
@@ -48,7 +48,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="background-color: #1D3D70;">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link text-white" href="index.html">
+                        <a class="nav-link text-white" href="{{ url('') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-white"></i></div>
                             Dashboard
                         </a>
