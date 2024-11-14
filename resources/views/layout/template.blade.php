@@ -38,7 +38,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    <li><a class="dropdown-item" href="{{ url('/logout') }}">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="sb-sidenav-footer text-white">
                     <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    {{ Auth::user()->name }}
                 </div>
             </nav>
         </div>
