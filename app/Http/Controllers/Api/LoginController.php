@@ -16,7 +16,8 @@ class LoginController extends Controller
             $user = Auth::user();
             return response()->json([
                 'status' => true,
-                'message' => 'Login berhasil!'
+                'message' => 'Login berhasil!',
+                'user' => $user
             ]);
         } else {
             return response()->json([
@@ -24,5 +25,14 @@ class LoginController extends Controller
                 'message' => 'Login gagal, data tidak cocok!'
             ], 401);
         }
+    }
+
+    public function logout(){
+        Auth::logout();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Logout berhasil!'
+        ]);
     }
 }
