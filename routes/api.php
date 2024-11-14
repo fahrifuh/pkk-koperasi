@@ -16,5 +16,6 @@ Route::put('data-anggota/{id}', [AnggotaKoperasiController::class, 'update']);
 Route::delete('data-anggota/{id}', [AnggotaKoperasiController::class, 'destroy']);
 
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout']);
 // Route::apiResource('data-anggota', AnggotaKoperasiController::class);
 

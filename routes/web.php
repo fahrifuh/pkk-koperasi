@@ -15,4 +15,5 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('data-anggota', AnggotaKoperasiController::class);
+    Route::get('/logout', [LoginController::class, 'logout']);
 });
