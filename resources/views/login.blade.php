@@ -36,7 +36,16 @@
                         <h2>Sign In</h2>
                         <p>Sign In to continue.</p>
                     </div>
-                    <form action="" method="POST">
+                    @if ($errors->any())
+                        <div class="text-danger">
+                            <ul>
+                                @foreach ($errors->all() as $item)
+                                    <li>{{ $item }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('login.submit') }}" method="POST">
                         @csrf
                         <div class="input-group mb-3">
                             <input type="text" class="form-control form-control-lg border-dark rounded-pill fs-6"
