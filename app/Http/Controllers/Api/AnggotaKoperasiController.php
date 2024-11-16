@@ -40,7 +40,7 @@ class AnggotaKoperasiController extends Controller
                 'status' => false,
                 'message' => 'Gagal menambah data!',
                 'data' => $validator->errors()
-            ]);
+            ], 401);
         }
 
         $dataAnggota = new AnggotaKoperasi;
@@ -53,7 +53,7 @@ class AnggotaKoperasiController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Berhasil tambah data!'
-        ]);
+        ], 200);
     }
 
     /**
@@ -72,7 +72,7 @@ class AnggotaKoperasiController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Data tidak ditemukan!'
-            ]);
+            ], 404);
         }
     }
 
@@ -102,7 +102,7 @@ class AnggotaKoperasiController extends Controller
                 'status' => false,
                 'message' => 'Gagal ubah data!',
                 'data' => $validator->errors()
-            ]);
+            ], 401);
         }
 
         $dataAnggota->nama = $request->nama;
@@ -114,7 +114,7 @@ class AnggotaKoperasiController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Berhasil ubah data!'
-        ]);
+        ], 200);
     }
 
     /**
@@ -130,11 +130,11 @@ class AnggotaKoperasiController extends Controller
             ], 404);
         }
 
-        $post = $dataAnggota->delete();
+        $dataAnggota->delete();
 
         return response()->json([
             'status' => true,
             'message' => 'Berhasil hapus data!'
-        ]);
+        ], 200);
     }
 }
