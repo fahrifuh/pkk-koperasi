@@ -18,7 +18,7 @@ class LoginController extends Controller
                 'status' => true,
                 'message' => 'Login berhasil!',
                 'user' => $user
-            ]);
+            ], 200);
         } else {
             return response()->json([
                 'status' => false,
