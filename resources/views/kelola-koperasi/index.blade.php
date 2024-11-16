@@ -1,5 +1,13 @@
 @extends('layout.template')
 
+@section('title')
+    Data Anggota | Koperasi RW 14 Cihurip
+@endsection
+
+@section('header')
+    Daftar Anggota 
+@endsection
+
 @section('content')
     @if (session()->has('success'))
         <div class="alert alert-success">

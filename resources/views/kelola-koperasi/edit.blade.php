@@ -1,5 +1,13 @@
 @extends('layout.template')
 
+@section('title')
+    Ubah Data Anggota | Koperasi RW 14 Cihurip
+@endsection
+
+@section('header')
+    Ubah Data Anggota
+@endsection
+
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
