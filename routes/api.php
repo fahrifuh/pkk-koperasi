@@ -10,12 +10,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('data-anggota', [AnggotaKoperasiController::class, 'index']);
-Route::get('data-anggota/{id}', [AnggotaKoperasiController::class, 'show']); 
+Route::get('data-anggota/{id}', [AnggotaKoperasiController::class, 'show']);
 Route::post('data-anggota', [AnggotaKoperasiController::class, 'store']);
 Route::put('data-anggota/{id}', [AnggotaKoperasiController::class, 'update']);
 Route::delete('data-anggota/{id}', [AnggotaKoperasiController::class, 'destroy']);
 
 Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 // Route::apiResource('data-anggota', AnggotaKoperasiController::class);
-

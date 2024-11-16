@@ -12,7 +12,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('data-anggota', AnggotaKoperasiController::class);
     Route::get('/logout', [LoginController::class, 'logout']);
