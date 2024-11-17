@@ -24,3 +24,9 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+function handleArrowKey(event){
+    if(event.key == "ArrowUp" || event.key == "ArrowDown"){
+        event.preventDefault();
+    }
+}
