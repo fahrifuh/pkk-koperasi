@@ -15,6 +15,8 @@ Route::get('data-anggota/{id}', [AnggotaKoperasiController::class, 'show']);
 Route::post('data-anggota', [AnggotaKoperasiController::class, 'store']);
 Route::put('data-anggota/{id}', [AnggotaKoperasiController::class, 'update']);
 Route::delete('data-anggota/{id}', [AnggotaKoperasiController::class, 'destroy']);
+Route::get('akun', [AnggotaKoperasiController::class, 'getAkun']);
+Route::delete('akun/{id}', [AnggotaKoperasiController::class, 'deleteAkun']);
 
 Route::apiResource('data-warga', WargaController::class);
 
