@@ -13,9 +13,10 @@ class AnggotaKoperasiController extends Controller
      */
     public function index()
     {
+        $baseUrl = "http://10.220.0.23:8000";
         //request data ke api
         $client = new Client();
-        $url = "http://localhost:8000/api/data-anggota";
+        $url = "$baseUrl/api/data-anggota";
         $response = $client->request('GET', $url);
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);
@@ -29,8 +30,10 @@ class AnggotaKoperasiController extends Controller
      */
     public function getAkun(){
         //request data ke api
+        $baseUrl = "http://10.220.0.23:8000";
+        //request data ke api
         $client = new Client();
-        $url = "http://localhost:8000/api/akun";
+        $url = "$baseUrl/api/akun";
         $response = $client->request('GET', $url);
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);
@@ -67,8 +70,9 @@ class AnggotaKoperasiController extends Controller
             'tglDaftar' => $tglDaftar 
         ];
 
+        $baseUrl = "http://10.220.0.23:8000";
         $client = new Client();
-        $url = "http://localhost:8000/api/data-anggota";
+        $url = "$baseUrl/api/data-anggota";
         $response = $client->request('POST', $url, [
             'headers' => ['Content-type' => 'application/json'],
             'body' => json_encode($param)
@@ -93,8 +97,9 @@ class AnggotaKoperasiController extends Controller
      */
     public function edit(string $id)
     {
+        $baseUrl = "http://10.220.0.23:8000";
         $client = new Client();
-        $url = "http://localhost:8000/api/data-anggota/$id";
+        $url = "$baseUrl/api/data-anggota/$id";
         $response = $client->request('GET', $url);
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);
@@ -124,8 +129,9 @@ class AnggotaKoperasiController extends Controller
             'tglDaftar' => $tglDaftar
         ];
 
+        $baseUrl = "http://10.220.0.23:8000";
         $client = new Client();
-        $url = "http://localhost:8000/api/data-anggota/$id";
+        $url = "$baseUrl/api/data-anggota/$id";
         $response = $client->request('PUT', $url, [
             'headers' => ['Content-type' => 'application/json'],
             'body' => json_encode($param)
@@ -145,8 +151,10 @@ class AnggotaKoperasiController extends Controller
      */
     public function destroy(string $id)
     {
+        $baseUrl = "http://10.220.0.23:8000";
+        //request data ke api
         $client = new Client();
-        $url = "http://localhost:8000/api/data-anggota/$id";
+        $url = "$baseUrl/api/data-anggota/$id";
         $response = $client->request('DELETE', $url);
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);
