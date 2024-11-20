@@ -15,11 +15,14 @@
         </div>
     @endif
     
+    <a href="{{ url('data-anggota') }}" class="btn btn-secondary mb-4">Kembali</a>
+
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
             Daftar Anggota Koperasi
         </div>
+
         <div class="card-body">
             <table id="datatablesSimple">
                 <thead>
@@ -28,7 +31,6 @@
                         <th>Nama Anggota</th>
                         <th>Username</th>
                         <th>Password</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,14 +47,6 @@
                             <td>{{ $item['name'] }}</td>
                             <td>{{ $item['username'] }}</td>
                             <td>{{ $item['ori_password'] }}</td>
-                            <td>
-                                <form class="d-inline" action="{{ url('data-anggota/akun' . $item['id']) }}" method="post"
-                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                </form>
-                            </td>
                         </tr>
                         @php
                             $no++;
