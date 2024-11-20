@@ -36,7 +36,9 @@
         <input type="date" class="form-control border-dark" name="tglDaftar" id="tglDaftar" autocomplete="off"
             value="{{ date('Y-m-d') }}" readonly/>
 
-        <button type="submit" class="btn btn-primary mt-3" name="submit">Simpan</button>
+        <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-primary mt-3" name="submit">Simpan</button>
+            <a href="{{ url('data-warga') }}" class="btn btn-secondary mt-3">Kembali</a>
+        </div>
     </form>
-    <button class="btn btn-secondary mt-2" onclick="window.location.href='{{ url('data-anggota') }}'">Kembali</button>
 @endsection

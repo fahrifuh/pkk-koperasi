@@ -18,13 +18,13 @@
             </ul>
         </div>
     @endif
-    <form action="{{ url('data-anggota/'. $data['id']) }}" method="POST">
+    <form action="{{ url('data-anggota/' . $data['id']) }}" method="POST">
         @csrf
         @method('PUT')
 
         <label for="noAnggota" class="form-label mt-3 fw-semibold">Nomor Anggota</label>
         <input type="text" class="form-control border-dark" name="noAnggota" id="noAnggota" autocomplete="off"
-            value="{{ old('noAnggota', $data['no_anggota'] ) }}" disabled/>
+            value="{{ old('noAnggota', $data['no_anggota']) }}" disabled />
 
         <label for="nama" class="form-label mt-3 fw-semibold">Nama Anggota</label>
         <input type="text" class="form-control border-dark" name="nama" id="nama" autocomplete="off"
@@ -37,7 +37,9 @@
         <input type="date" class="form-control border-dark" name="tglDaftar" id="tglDaftar" autocomplete="off"
             value="{{ old('tglDaftar', $data['tgl_daftar']) }}" />
 
-        <button type="submit" class="btn btn-primary mt-3" name="submit">Simpan</button>
+        <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-primary mt-3" name="submit">Simpan</button>
+            <a href="{{ url('data-warga') }}" class="btn btn-secondary mt-3">Kembali</a>
+        </div>
     </form>
-    <button class="btn btn-secondary mt-2" onclick="window.location.href='{{ url('data-anggota') }}'">Kembali</button>
 @endsection
