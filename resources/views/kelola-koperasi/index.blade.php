@@ -5,7 +5,7 @@
 @endsection
 
 @section('header')
-    Daftar Anggota 
+    Daftar Anggota
 @endsection
 
 @section('content')
@@ -16,6 +16,7 @@
     @endif
 
     <a href="{{ url('data-anggota/create') }}" class="btn btn-primary mb-4">Tambah Data</a>
+    <a href="{{ url('data-anggota/akun') }}" class="btn btn-success mb-4">Lihat Akun Anggota</a>
 
     <div class="card mb-4">
         <div class="card-header">
@@ -48,8 +49,10 @@
                             <td>{{ $item['alamat'] }}</td>
                             <td>{{ date('d/m/Y', strtotime($item['tgl_daftar'])) }}</td>
                             <td>
-                                <a href="{{ url('data-anggota/' . $item['id']). '/edit' }}" class="btn btn-warning btn-sm">Ubah</a>
-                                <form class="d-inline" action="{{ url('data-anggota/' . $item['id']) }}" method="post" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                <a href="{{ url('data-anggota/' . $item['id']) . '/edit' }}"
+                                    class="btn btn-warning btn-sm">Ubah</a>
+                                <form class="d-inline" action="{{ url('data-anggota/' . $item['id']) }}" method="post"
+                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
