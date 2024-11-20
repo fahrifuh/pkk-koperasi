@@ -157,24 +157,4 @@ class AnggotaKoperasiController extends Controller
             return redirect()->to('data-anggota')->with('success', 'Berhasil hapus data!');
         }
     }
-
-    /**
-     * Hapus Akun Anggota.
-     */
-    public function deleteAkun(string $id)
-    {
-        $client = new Client();
-        $url = "http://localhost:8000/api/akun/$id";
-        $response = $client->request('DELETE', $url);
-        $content =  $response->getBody()->getContents();
-        $contentArray = json_decode($content, true);
-        if ($contentArray['status'] != true) {
-            $err = $contentArray['data'];
-            return redirect()->to('data-anggota/akun')->withErrors($err)->withInput();
-        } else {
-            return redirect()->to('data-anggota/akun')->with('success', 'Berhasil hapus data!');
-        }
-    }
-
-
 }
