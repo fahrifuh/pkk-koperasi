@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\AnggotaKoperasi;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,6 +16,18 @@ class AnggotaKoperasiController extends Controller
     public function index()
     {
         $data = AnggotaKoperasi::all();
+        return response()->json([
+            'status' => true,
+            'message' => 'Data tersedia!',
+            'data' => $data
+        ], 200);
+    }
+
+    /**
+     * Mengambil data user
+     */
+    public function getAkun(){
+        $data = User::all();
         return response()->json([
             'status' => true,
             'message' => 'Data tersedia!',
@@ -35,25 +48,42 @@ class AnggotaKoperasiController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => 'Gagal menambah data!',
+                'message' => 'Data tidak valid!',
                 'data' => $validator->errors()
             ], 401);
         }
 
-        $dataAnggota = new AnggotaKoperasi;
+        $dataAnggota = new AnggotaKoperasi();
         $dataAnggota->nama = $request->nama;
         $dataAnggota->alamat = $request->alamat;
         $dataAnggota->tgl_daftar = $request->tglDaftar;
+        $dataAnggota->save();
 
-        $post = $dataAnggota->save();
+        $nama = $request->nama;
+        $this->generateAccount($nama);
 
+        //generate akun untuk anggota
         return response()->json([
             'status' => true,
             'message' => 'Berhasil tambah data!'
         ], 200);
+    }
+
+    private function generateAccount($nama)
+    {
+        $username = strtolower(str_replace(' ', '', $nama));
+        $password = $username . rand(1000, 9999);
+        $hashedPassword = bcrypt($password);
+
+        $dataUser = new User();
+        $dataUser->name = $nama;
+        $dataUser->username = $username;
+        $dataUser->password = $hashedPassword;
+        $dataUser->ori_password = $password;
+        return $dataUser->save();
     }
 
     /**
@@ -82,7 +112,7 @@ class AnggotaKoperasiController extends Controller
     public function update(Request $request, string $id)
     {
         $dataAnggota = AnggotaKoperasi::find($id);
-        if(empty($dataAnggota)){
+        if (empty($dataAnggota)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data tidak ditemukan!',
@@ -97,7 +127,7 @@ class AnggotaKoperasiController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'Gagal ubah data!',
@@ -123,7 +153,7 @@ class AnggotaKoperasiController extends Controller
     public function destroy(string $id)
     {
         $dataAnggota = AnggotaKoperasi::find($id);
-        if(empty($dataAnggota)){
+        if (empty($dataAnggota)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data tidak ditemukan!',
@@ -131,6 +161,24 @@ class AnggotaKoperasiController extends Controller
         }
 
         $dataAnggota->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil hapus data!'
+        ], 200);
+    }
+
+    public function deleteAkun(string $id)
+    {
+        $akun = User::find($id);
+        if (empty($akun)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan!',
+            ], 404);
+        }
+
+        $akun->delete();
 
         return response()->json([
             'status' => true,
