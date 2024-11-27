@@ -4,16 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AnggotaKoperasi extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'anggota_koperasi';
     protected $fillable = [
         'nama',
         'alamat',
-        'tgl_daftar'
+        'tgl_daftar',
+        'deleted_at'
     ];
 
     public $timestamps = false;
