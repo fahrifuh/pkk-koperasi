@@ -26,8 +26,9 @@ class AnggotaKoperasiController extends Controller
     /**
      * Mengambil data user
      */
-    public function getAkun(){
-        $data = User::all();
+    public function getAkun()
+    {
+        $data = User::where('role', 'warga')->get();
         return response()->json([
             'status' => true,
             'message' => 'Data tersedia!',
@@ -63,7 +64,8 @@ class AnggotaKoperasiController extends Controller
         $dataAnggota->save();
 
         $nama = $request->nama;
-        $this->generateAccount($nama);
+        $idAnggota = $dataAnggota->id;
+        $this->generateAccount($nama, $idAnggota);
 
         //generate akun untuk anggota
         return response()->json([
@@ -72,7 +74,7 @@ class AnggotaKoperasiController extends Controller
         ], 200);
     }
 
-    private function generateAccount($nama)
+    private function generateAccount($nama, $idAnggota)
     {
         $username = strtolower(str_replace(' ', '', $nama));
         $password = $username . rand(1000, 9999);
@@ -83,6 +85,7 @@ class AnggotaKoperasiController extends Controller
         $dataUser->username = $username;
         $dataUser->password = $hashedPassword;
         $dataUser->ori_password = $password;
+        $dataUser->id_anggota = $idAnggota;
         return $dataUser->save();
     }
 
@@ -139,7 +142,7 @@ class AnggotaKoperasiController extends Controller
         $dataAnggota->alamat = $request->alamat;
         $dataAnggota->tgl_daftar = $request->tglDaftar;
 
-        $post = $dataAnggota->save();
+        $dataAnggota->save();
 
         return response()->json([
             'status' => true,

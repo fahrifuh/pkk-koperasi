@@ -13,7 +13,7 @@ class WargaController extends Controller
     public function index()
     {
         //request data ke api
-        $baseUrl = "http://10.220.0.23:8000";
+        $baseUrl = "http://localhost:8000";
         $client = new Client();
         $url = "$baseUrl/api/data-warga";
         $response = $client->request('GET', $url);
@@ -44,7 +44,7 @@ class WargaController extends Controller
             'no_kk' => $request->no_kk 
         ];
         
-        $baseUrl = "http://10.220.0.23:8000";
+        $baseUrl = "http://localhost:8000";
         $client = new Client();
         $url = "$baseUrl/api/data-warga";
         $response = $client->request('POST', $url, [
@@ -74,7 +74,7 @@ class WargaController extends Controller
      */
     public function edit(string $id)
     {
-        $baseUrl = "http://10.220.0.23:8000";
+        $baseUrl = "http://localhost:8000";
         $client = new Client();
         $url = "$baseUrl/api/data-warga/$id";
         $response = $client->request('GET', $url);
@@ -102,8 +102,9 @@ class WargaController extends Controller
      */
     public function destroy(string $id)
     {
+        $baseUrl = "http://localhost:8000";
         $client = new Client();
-        $url = "http://localhost:8000/api/data-warga/$id";
+        $url = "$baseUrl/api/data-warga/$id";
         $response = $client->request('DELETE', $url);
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);

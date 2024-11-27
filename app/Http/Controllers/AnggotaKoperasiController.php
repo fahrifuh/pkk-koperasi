@@ -13,7 +13,7 @@ class AnggotaKoperasiController extends Controller
      */
     public function index()
     {
-        $baseUrl = "http://10.220.0.23:8000";
+        $baseUrl = "http://localhost:8000";
         //request data ke api
         $client = new Client();
         $url = "$baseUrl/api/data-anggota";
@@ -30,7 +30,7 @@ class AnggotaKoperasiController extends Controller
      */
     public function getAkun(){
         //request data ke api
-        $baseUrl = "http://10.220.0.23:8000";
+        $baseUrl = "http://localhost:8000";
         //request data ke api
         $client = new Client();
         $url = "$baseUrl/api/akun";
@@ -70,7 +70,7 @@ class AnggotaKoperasiController extends Controller
             'tglDaftar' => $tglDaftar 
         ];
 
-        $baseUrl = "http://10.220.0.23:8000";
+        $baseUrl = "http://localhost:8000";
         $client = new Client();
         $url = "$baseUrl/api/data-anggota";
         $response = $client->request('POST', $url, [
@@ -97,7 +97,7 @@ class AnggotaKoperasiController extends Controller
      */
     public function edit(string $id)
     {
-        $baseUrl = "http://10.220.0.23:8000";
+        $baseUrl = "http://localhost:8000";
         $client = new Client();
         $url = "$baseUrl/api/data-anggota/$id";
         $response = $client->request('GET', $url);
@@ -129,7 +129,7 @@ class AnggotaKoperasiController extends Controller
             'tglDaftar' => $tglDaftar
         ];
 
-        $baseUrl = "http://10.220.0.23:8000";
+        $baseUrl = "http://localhost:8000";
         $client = new Client();
         $url = "$baseUrl/api/data-anggota/$id";
         $response = $client->request('PUT', $url, [
@@ -151,7 +151,7 @@ class AnggotaKoperasiController extends Controller
      */
     public function destroy(string $id)
     {
-        $baseUrl = "http://10.220.0.23:8000";
+        $baseUrl = "http://localhost:8000";
         //request data ke api
         $client = new Client();
         $url = "$baseUrl/api/data-anggota/$id";
