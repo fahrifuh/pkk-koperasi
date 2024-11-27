@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnggotaKoperasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WargaController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,5 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::get('data-anggota/akun', [AnggotaKoperasiController::class, 'getAkun']);
     Route::delete('data-anggota/akun/{id}', [AnggotaKoperasiController::class, 'deleteAkun']);
     Route::resource('data-warga', WargaController::class);
+    Route::resource('data-anggota/transaksi', TransaksiController::class);
     Route::get('/logout', [LoginController::class, 'logout']);
 });
