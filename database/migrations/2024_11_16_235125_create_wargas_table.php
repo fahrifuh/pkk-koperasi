@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_lengkap');
             $table->text('alamat_lengkap');
             $table->bigInteger('no_kk');
-            $table->timestampsTz();
+            $table->timestamps();
         });
     }
 

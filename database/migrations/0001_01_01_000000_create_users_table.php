@@ -18,10 +18,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('ori_password');
             $table->string('role')->default('warga');
-            $table->unsignedBigInteger('id_anggota')->default(0);
+            $table->foreignId('id_anggota')->nullable()->constrained('anggota_koperasi')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreignId('id_anggota')->constrained('anggota_koperasi')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

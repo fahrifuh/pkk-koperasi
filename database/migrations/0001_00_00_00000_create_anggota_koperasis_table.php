@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->date('tgl_daftar');
+            $table->softDeletes();
         });
     }
 
