@@ -7,6 +7,7 @@ use App\Models\AnggotaKoperasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AnggotaKoperasiController extends Controller
 {
@@ -77,6 +78,11 @@ class AnggotaKoperasiController extends Controller
     private function generateAccount($nama, $idAnggota)
     {
         $username = strtolower(str_replace(' ', '', $nama));
+
+        if (strlen($username) < 4) {
+            $username = $username . strtolower(Str::random(4 - strlen($username)));
+        }
+
         $password = $username . rand(1000, 9999);
         $hashedPassword = bcrypt($password);
 
