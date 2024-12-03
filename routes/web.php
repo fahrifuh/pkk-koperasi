@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WargaController;
+use App\Http\Middleware\RoleCheck;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,8 +15,12 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', RoleCheck::class . ':admin,warga'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/logout', [LoginController::class, 'logout']);
+});
+
+Route::middleware(['auth', RoleCheck::class . ':admin'])->group(function () {
     Route::get('data-anggota', [AnggotaKoperasiController::class, 'index'])->name('data-anggota.index');
     Route::get('data-anggota/create', [AnggotaKoperasiController::class, 'create'])->name('data-anggota.create');
     Route::post('data-anggota', [AnggotaKoperasiController::class, 'store'])->name('data-anggota.store');
@@ -26,5 +31,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('data-anggota/akun/{id}', [AnggotaKoperasiController::class, 'deleteAkun']);
     Route::resource('data-warga', WargaController::class);
     Route::resource('data-anggota/transaksi', TransaksiController::class);
-    Route::get('/logout', [LoginController::class, 'logout']);
 });
