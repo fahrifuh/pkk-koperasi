@@ -39,7 +39,7 @@
 
         <div class="d-flex gap-3">
             <button type="submit" class="btn btn-primary mt-3" name="submit">Simpan</button>
-            <a href="{{ url('data-warga') }}" class="btn btn-secondary mt-3">Kembali</a>
+            <a href="{{ url('data-anggota') }}" class="btn btn-secondary mt-3">Kembali</a>
         </div>
     </form>
 @endsection
