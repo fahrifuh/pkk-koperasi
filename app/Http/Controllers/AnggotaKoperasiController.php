@@ -28,7 +28,8 @@ class AnggotaKoperasiController extends Controller
     /**
      * Mengambil data user
      */
-    public function getAkun(){
+    public function getAkun()
+    {
         //request data ke api
         $baseUrl = "http://localhost:8000";
         //request data ke api
@@ -48,9 +49,15 @@ class AnggotaKoperasiController extends Controller
     public function create()
     {
         // format nomor anggota
-        $lastId = AnggotaKoperasi::max('id');
-        $newId = $lastId ? $lastId + 1 : 1;
-        $no_anggota = str_pad($newId, 3, '0', STR_PAD_LEFT);
+        $deletedId = AnggotaKoperasi::onlyTrashed()->orderBy('id', 'desc')->pluck('id')->first();
+        if ($deletedId) {
+            $newId = $deletedId + 1;
+            $no_anggota = str_pad($newId, 3, '0', STR_PAD_LEFT);
+        } else {
+            $lastId = AnggotaKoperasi::max('id');
+            $newId = $lastId ? $lastId + 1 : 1;
+            $no_anggota = str_pad($newId, 3, '0', STR_PAD_LEFT);
+        }
 
         return view('kelola-koperasi.create', compact('no_anggota'));
     }
@@ -67,7 +74,7 @@ class AnggotaKoperasiController extends Controller
         $param = [
             'nama' => $nama,
             'alamat' => $alamat,
-            'tglDaftar' => $tglDaftar 
+            'tglDaftar' => $tglDaftar
         ];
 
         $baseUrl = "http://localhost:8000";
