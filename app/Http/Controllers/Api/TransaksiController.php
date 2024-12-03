@@ -57,10 +57,25 @@ class TransaksiController extends Controller
             ], 401);
         }
 
+        
+
         $jumlahAll = 0;
 
         foreach($request->detail as $item){
             $jumlahAll += $item['jumlah'];
+            if($item['jenis'] == 'pokok'){
+                $cekTransaksi = DetailTransaksi::whereHas('transactions', function($query) use ($request){
+                    $query->where('id_anggota', $request->nama);
+                })->where('jenis_simpanan', 'pokok')->first();
+
+                if($cekTransaksi){
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Anggota sudah membayar simpanan pokok.'
+                    ]);
+                }
+            }
+
         }
 
         $transaksi = new Transaksi();
