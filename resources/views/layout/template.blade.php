@@ -10,22 +10,30 @@
     <title>@yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="{{ asset('js/jquery/jquery-3.4.1.min.js') }}"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #1D3D70;">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="#"><img src="{{ asset('img/logo-rw.png') }}" alt="logo"
-                width="200" height="90"></a>
+        <a class="navbar-brand" href="#"><img src="{{ asset('img/logo-rw.png') }}" alt="logo" width="200"
+                height="90"></a>
         <!-- Sidebar Toggle-->
         <div class="d-flex justify-content-between w-100">
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                    class="fas fa-bars text-white fs-4"></i></button>
-        
+            <button class="btn btn-link btn-sm order-1 order-lg-0 ms-3 me-4 me-lg-0" id="sidebarToggle"
+                href="#!"><i class="fas fa-bars text-white fs-4"></i></button>
+
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <p class="text-white my-auto fs-5">{{ Auth::user()->name }}</p>
+                <p class="d-none d-md-block text-white my-auto fs-5">{{ Auth::user()->name }}</p>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw text-white"></i></a>
@@ -50,57 +58,40 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-house text-white"></i></div>
                             Dashboard
                         </a>
-                        <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
-                            data-bs-target="#warga" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user text-white"></i></div>
-                            Data Warga
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i></div>
-                        </a>
-                        <div class="collapse" id="warga" aria-labelledby="headingOne"
-                            data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-white" href="{{ url('data-warga') }}">Lihat Data Warga</a>
-                                <a class="nav-link text-white" href="#">Light Sidenav</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
-                            data-bs-target="#koperasi" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users text-white"></i></div>
-                            Data Koperasi
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i></div>
-                        </a>
-                        <div class="collapse" id="koperasi" aria-labelledby="headingOne"
-                            data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-white" href="{{ url('data-anggota') }}">Lihat Data Anggota</a>
-                                <a class="nav-link text-white" href="#">Lihat Data Transaksi</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
-                            data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                            <div class="sb-nav-link-icon"><i class="fas fa-book-open text-white"></i></div>
-                            Pages
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i></div>
-                        </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
-                            data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseAuth" aria-expanded="false"
-                                    aria-controls="pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link text-white" href="#">Login</a>
-                                        <a class="nav-link text-white" href="#">Register</a>
-                                        <a class="nav-link text-white" href="#">Forgot Password</a>
-                                    </nav>
+                        @if (Auth::check() && Auth::user()->role == 'admin')
+                            <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                data-bs-target="#warga" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user text-white"></i></div>
+                                Data Warga
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i>
                                 </div>
-                            </nav>
-                        </div>
+                            </a>
+                            <div class="collapse" id="warga" aria-labelledby="headingOne"
+                                data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link text-white" href="{{ url('data-warga') }}">Lihat Data Warga</a>
+                                    <a class="nav-link text-white" href="#">Lihat Jadwal Ronda</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                data-bs-target="#koperasi" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-users text-white"></i></div>
+                                Data Koperasi
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="koperasi" aria-labelledby="headingOne"
+                                data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link text-white" href="{{ url('data-anggota') }}">Lihat Data
+                                        Anggota</a>
+                                    <a class="nav-link text-white" href="{{ url('data-anggota/transaksi') }}">Lihat
+                                        Data
+                                        Transaksi</a>
+                                </nav>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </nav>
@@ -120,12 +111,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="{{ asset('js/datatables-simple-demo.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </body>
 
 </html>
