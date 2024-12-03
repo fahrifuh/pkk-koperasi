@@ -25,9 +25,20 @@ class AnggotaKoperasi extends Model
         parent::boot();
 
         static::creating(function ($anggota) {
-            $lastId = self::max('id');
-            $newId = $lastId ? $lastId + 1 : 1;
-            $anggota->no_anggota = str_pad($newId, 3, '0', STR_PAD_LEFT);
+            $deletedId = self::onlyTrashed()->orderBy('id', 'desc')->pluck('id')->first();
+            if ($deletedId) {
+                $newId = $deletedId + 1;
+                $anggota->no_anggota = str_pad($newId, 3, '0', STR_PAD_LEFT);
+            } else {
+                $lastId = self::max('id');
+                $newId = $lastId ? $lastId + 1 : 1;
+                $anggota->no_anggota = str_pad($newId, 3, '0', STR_PAD_LEFT);
+            }
         });
+    }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
     }
 }
