@@ -15,15 +15,15 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required',
-            'password' => 'required | min:8',
+            'username' => 'required|string',
+            'password' => 'required|string|min:8',
         ]);
 
         if (Auth::attempt($request->only('username', 'password'))) {
             return redirect()->intended('/');
         }
 
-        return back()->withErrors(['Username atau password salah.']);
+        return back()->withErrors(['Username atau password salah!']);
     }
 
     public function logout(){

@@ -26,17 +26,13 @@
                         <h2>Sign In</h2>
                         <p>Sign In to continue.</p>
                     </div>
-                    @if ($errors->any())
-                        <div class="text-danger">
-                            <ul>
-                                @foreach ($errors->all() as $item)
-                                    <li>{{ $item }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <form action="{{ route('login.submit') }}" method="POST">
                         @csrf
+                        @if ($errors->any())
+                                    @foreach ($errors->all() as $item)
+                                        <p class="text-danger mw-100 fst-italic">{{ $item }}</p>
+                                    @endforeach
+                        @endif
                         <div class="input-group mb-3">
                             <input type="text" class="form-control form-control-lg border-dark rounded-pill fs-6"
                                 placeholder="Username" name="username" id="username" autocomplete="off" />
