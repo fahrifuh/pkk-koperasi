@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnggotaKoperasi;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -171,5 +173,13 @@ class AnggotaKoperasiController extends Controller
         } else {
             return redirect()->to('data-anggota')->with('success', 'Berhasil hapus data!');
         }
+    }
+    
+    public function generatePDF(){
+        $data = AnggotaKoperasi::all();
+        $tanggalCetak = Carbon::now()->format('d F Y, H:i');
+
+        $pdf = Pdf::loadView('pdf.struck',['data' => $data, 'tanggalCetak' => $tanggalCetak]);
+        return $pdf->stream('data_anggota.pdf');
     }
 }

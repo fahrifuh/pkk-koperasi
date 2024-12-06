@@ -8,7 +8,6 @@ Dashboard | Koperasi RW 14 Cihurip
 Dashboard
 @endsection
 
-<<<<<<< HEAD
 @section('content')
     <div class="row justify-content-center">
         <div class="col-xl-5 col-md-6">
@@ -29,16 +28,6 @@ Dashboard
                 <p class="text-white fw-semibold fs-5">
                     {{ $countWarga }}
                 </p>
-=======
-@section ('content')
-<div class="row justify-content-center">
-    <div class="col-xl-5 col-md-6">
-        <div class="card bg-primary text-white mb-4">
-            <div class="card-body">Jumlah Anggota : {{ $countAnggota }} </div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="{{ url('data-anggota') }}">View Details</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
->>>>>>> 22fda59 (perbaikan code)
             </div>
         </div>
     </div>

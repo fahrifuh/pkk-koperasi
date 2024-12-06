@@ -37,4 +37,5 @@ Route::middleware(['auth', RoleCheck::class . ':admin'])->group(function () {
     Route::get('data-anggota/transaksi/{id}/edit', [TransaksiController::class, 'edit'])->name('transaksi.edit');
     Route::put('data-anggota/transaksi/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
     Route::delete('data-anggota/transaksi/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+    Route::get('/data-anggota/pdf',[AnggotaKoperasiController::class, 'generatePDF'])->name('data-anggota.pdf');
 });
