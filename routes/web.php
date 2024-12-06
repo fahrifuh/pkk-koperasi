@@ -18,6 +18,7 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth', RoleCheck::class . ':admin,warga'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/logout', [LoginController::class, 'logout']);
+    Route::get('data-anggota/transaksi/{id}', [TransaksiController::class, 'show'])->name('transaksi.show');
 });
 
 Route::middleware(['auth', RoleCheck::class . ':admin'])->group(function () {
@@ -30,5 +31,10 @@ Route::middleware(['auth', RoleCheck::class . ':admin'])->group(function () {
     Route::get('data-anggota/akun', [AnggotaKoperasiController::class, 'getAkun']);
     Route::delete('data-anggota/akun/{id}', [AnggotaKoperasiController::class, 'deleteAkun']);
     Route::resource('data-warga', WargaController::class);
-    Route::resource('data-anggota/transaksi', TransaksiController::class);
+    Route::get('data-anggota/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('data-anggota/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('data-anggota/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::get('data-anggota/transaksi/{id}/edit', [TransaksiController::class, 'edit'])->name('transaksi.edit');
+    Route::put('data-anggota/transaksi/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
+    Route::delete('data-anggota/transaksi/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 });

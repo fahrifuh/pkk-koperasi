@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,13 +19,15 @@ class TransaksiController extends Controller
     {
         $data = DB::table('transaksi')
             ->distinct()
-            ->join('detail_transaksi', 'transaksi.id', '=', 'detail_transaksi.id_transaksi')
+            // ->join('detail_transaksi', 'transaksi.id', '=', 'detail_transaksi.id_transaksi')
             ->join('anggota_koperasi', 'transaksi.id_anggota', '=', 'anggota_koperasi.id')
             ->get([
+                'transaksi.id',
                 'anggota_koperasi.nama',
                 'transaksi.tanggal_transaksi',
-                'detail_transaksi.jenis_simpanan',
-                'detail_transaksi.jumlah_simpanan'
+                'transaksi.jumlah'
+                // 'detail_transaksi.jenis_simpanan',
+                // 'detail_transaksi.jumlah_simpanan'
             ]);
 
         return response()->json([
@@ -57,25 +60,24 @@ class TransaksiController extends Controller
             ], 401);
         }
 
-        
+
 
         $jumlahAll = 0;
 
-        foreach($request->detail as $item){
+        foreach ($request->detail as $item) {
             $jumlahAll += $item['jumlah'];
-            if($item['jenis'] == 'pokok'){
-                $cekTransaksi = DetailTransaksi::whereHas('transactions', function($query) use ($request){
+            if ($item['jenis'] == 'pokok') {
+                $cekTransaksi = DetailTransaksi::whereHas('transactions', function ($query) use ($request) {
                     $query->where('id_anggota', $request->nama);
                 })->where('jenis_simpanan', 'pokok')->first();
 
-                if($cekTransaksi){
+                if ($cekTransaksi) {
                     return response()->json([
                         'status' => false,
                         'message' => 'Anggota sudah membayar simpanan pokok.'
                     ]);
                 }
             }
-
         }
 
         $transaksi = new Transaksi();
@@ -84,7 +86,7 @@ class TransaksiController extends Controller
         $transaksi->jumlah = $jumlahAll;
         $transaksi->save();
 
-        foreach($request->detail as $item){
+        foreach ($request->detail as $item) {
             $detail = new DetailTransaksi();
             $detail->id_transaksi = $transaksi->id;
             $detail->jenis_simpanan = $item['jenis'];
@@ -103,7 +105,32 @@ class TransaksiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // $anggotaID = Auth::user()->id;
+        // $data = DB::table('transaksi')
+        //     ->distinct()
+        //     ->join('detail_transaksi', 'transaksi.id', '=', 'detail_transaksi.id_transaksi')
+        //     ->join('anggota_koperasi', 'transaksi.id_anggota', '=', 'anggota_koperasi.id')
+        //     ->get([
+        //         'transaksi.id',
+        //         'anggota_koperasi.nama',
+        //         'transaksi.tanggal_transaksi',
+        //         'detail_transaksi.jenis_simpanan',
+        //         'detail_transaksi.jumlah_simpanan'
+        //     ]);
+
+        $data = DetailTransaksi::where('id_transaksi', $id)->get();
+        if ($data) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data ditemukan!',
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan!',
+            ], 404);
+        }
     }
 
     /**
