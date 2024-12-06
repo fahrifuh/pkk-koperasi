@@ -16,8 +16,8 @@
         <div class="row border rounded-5 p-3 bg-white shadow box-area">
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
                 {{-- style="background: #103cbe" --}}
-                <div class="featured-image">
-                    <img src="{{ asset('/img/logo-koperasi.png') }}" width="300" >
+                <div class="featured-image" style="max-width: 300px">
+                    <img src="{{ asset('/img/logo-koperasi.png') }}" width="100%" >
                 </div>
             </div>
             <div class="col-md-6 right-box">
