@@ -38,11 +38,6 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw text-white"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
                         <li><a class="dropdown-item" href="{{ url('/logout') }}">Logout</a></li>
                     </ul>
                 </li>
@@ -58,6 +53,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-house text-white"></i></div>
                             Dashboard
                         </a>
+                        @if (Auth::check() && Auth::user()->role == 'warga')
+                            <a class="nav-link text-white"
+                                href="{{ url('data-anggota/transaksi/' . Auth::user()->id) }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-house text-white"></i></div>
+                                Riwayat Transaksi
+                            </a>
+                        @endif
                         @if (Auth::check() && Auth::user()->role == 'admin')
                             <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
                                 data-bs-target="#warga" aria-expanded="false" aria-controls="collapseLayouts">
