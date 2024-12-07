@@ -15,7 +15,6 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="row border rounded-5 p-3 bg-white shadow box-area">
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-                {{-- style="background: #103cbe" --}}
                 <div class="featured-image" style="max-width: 300px">
                     <img src="{{ asset('/img/logo-koperasi.png') }}" width="100%" >
                 </div>
@@ -52,7 +51,7 @@
                             </div>
                         </div> --}}
                         <div class="input-group my-3">
-                            <button class="btn btn-lg btn-dark rounded-pill mx-auto w-50 fw-bold fs-6">Sign In</button>
+                            <button class="btn btn-lg btn-dark rounded-pill mx-auto w-50 fw-bold fs-6">Log In</button>
                         </div>
                     </form>
                 </div>
