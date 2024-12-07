@@ -45,59 +45,64 @@
         </div>
     </nav>
     <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="background-color: #1D3D70;">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <a class="nav-link text-white" href="{{ url('/') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-house text-white"></i></div>
-                            Dashboard
-                        </a>
-                        @if (Auth::check() && Auth::user()->role == 'warga')
-                            <a class="nav-link text-white"
-                                href="{{ url('data-anggota/transaksi/' . Auth::user()->id) }}">
+        @if (Auth::check())
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
+                    style="background-color: #1D3D70;">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <a class="nav-link text-white" href="{{ url('/') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-house text-white"></i></div>
-                                Riwayat Transaksi
+                                Dashboard
                             </a>
-                        @endif
-                        @if (Auth::check() && Auth::user()->role == 'admin')
-                            <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
-                                data-bs-target="#warga" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user text-white"></i></div>
-                                Data Warga
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i>
+                            @if (Auth::check() && Auth::user()->role == 'warga')
+                                <a class="nav-link text-white"
+                                    href="{{ url('data-anggota/transaksi/' . Auth::user()->id) }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-floppy-disk text-white"></i></div>
+                                    Riwayat Transaksi
+                                </a>
+                            @endif
+                            @if (Auth::check() && Auth::user()->role == 'admin')
+                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#warga" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-user text-white"></i></div>
+                                    Data Warga
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="warga" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-white" href="{{ url('data-warga') }}">Lihat Data
+                                            Warga</a>
+                                        <a class="nav-link text-white" href="#">Lihat Jadwal Ronda</a>
+                                    </nav>
                                 </div>
-                            </a>
-                            <div class="collapse" id="warga" aria-labelledby="headingOne"
-                                data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link text-white" href="{{ url('data-warga') }}">Lihat Data Warga</a>
-                                    <a class="nav-link text-white" href="#">Lihat Jadwal Ronda</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
-                                data-bs-target="#koperasi" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users text-white"></i></div>
-                                Data Koperasi
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i>
+                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#koperasi" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-users text-white"></i></div>
+                                    Data Koperasi
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="koperasi" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-white" href="{{ url('data-anggota') }}">Lihat Data
+                                            Anggota</a>
+                                        <a class="nav-link text-white"
+                                            href="{{ url('data-anggota/transaksi') }}">Lihat
+                                            Data
+                                            Transaksi</a>
+                                    </nav>
                                 </div>
-                            </a>
-                            <div class="collapse" id="koperasi" aria-labelledby="headingOne"
-                                data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link text-white" href="{{ url('data-anggota') }}">Lihat Data
-                                        Anggota</a>
-                                    <a class="nav-link text-white" href="{{ url('data-anggota/transaksi') }}">Lihat
-                                        Data
-                                        Transaksi</a>
-                                </nav>
-                            </div>
-                        @endif
+                            @endif
 
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </div>
+                </nav>
+            </div>
+        @endif
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">

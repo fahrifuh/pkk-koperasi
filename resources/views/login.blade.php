@@ -23,8 +23,8 @@
             <div class="col-md-6 right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4 text-center">
-                        <h2>Sign In</h2>
-                        <p>Sign In to continue.</p>
+                        <h2>Log In</h2>
+                        <p>Log In ke akun koperasi Anda.</p>
                     </div>
                     <form action="{{ route('login.submit') }}" method="POST">
                         @csrf
@@ -41,7 +41,7 @@
                             <input type="password" class="form-control form-control-lg border-dark rounded-pill fs-6"
                                 placeholder="Password" name="password" id="password" />
                         </div>
-                        <div class="input-group mb-5 d-flex justify-content-between">
+                        {{-- <div class="input-group mb-5 d-flex justify-content-between">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="formCheck" />
                                 <label for="formCheck" class="form-check-label text-secondary"><small>Remember
@@ -50,8 +50,8 @@
                             <div class="forgot">
                                 <small><a href="#" class="nav-link">Forgot Password?</a></small>
                             </div>
-                        </div>
-                        <div class="input-group mb-3">
+                        </div> --}}
+                        <div class="input-group my-3">
                             <button class="btn btn-lg btn-dark rounded-pill mx-auto w-50 fw-bold fs-6">Sign In</button>
                         </div>
                     </form>

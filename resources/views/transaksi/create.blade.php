@@ -18,7 +18,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('transaksi.store') }}" method="POST">
+    <form action="{{ url('data-anggota/transaksi/create') }}" method="POST">
         @csrf
 
         <label for="tglTransaksi" class="form-label mt-3 fw-semibold">Tanggal Transaksi</label>
