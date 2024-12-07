@@ -105,25 +105,26 @@ class TransaksiController extends Controller
      */
     public function show(string $id)
     {
-        // $anggotaID = Auth::user()->id;
-        // $data = DB::table('transaksi')
-        //     ->distinct()
-        //     ->join('detail_transaksi', 'transaksi.id', '=', 'detail_transaksi.id_transaksi')
-        //     ->join('anggota_koperasi', 'transaksi.id_anggota', '=', 'anggota_koperasi.id')
-        //     ->get([
-        //         'transaksi.id',
-        //         'anggota_koperasi.nama',
-        //         'transaksi.tanggal_transaksi',
-        //         'detail_transaksi.jenis_simpanan',
-        //         'detail_transaksi.jumlah_simpanan'
-        //     ]);
+
+        $detail = DB::table('transaksi')
+            ->distinct()
+            ->join('detail_transaksi', 'transaksi.id', '=', 'detail_transaksi.id_transaksi')
+            ->join('anggota_koperasi', 'transaksi.id_anggota', '=', 'anggota_koperasi.id')
+            ->get([
+                'transaksi.id',
+                'anggota_koperasi.nama',
+                'transaksi.tanggal_transaksi',
+                'detail_transaksi.jenis_simpanan',
+                'detail_transaksi.jumlah_simpanan'
+            ]);
 
         $data = DetailTransaksi::where('id_transaksi', $id)->get();
         if ($data) {
             return response()->json([
                 'status' => true,
                 'message' => 'Data ditemukan!',
-                'data' => $data
+                'data' => $data,
+                'detail' => $detail
             ], 200);
         } else {
             return response()->json([

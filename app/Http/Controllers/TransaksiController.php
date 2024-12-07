@@ -75,8 +75,12 @@ class TransaksiController extends Controller
         $content =  $response->getBody()->getContents();
         $contentArray = json_decode($content, true);
         $data = $contentArray['data'];
+        $detail = $contentArray['detail'];
 
-        return view('transaksi.index', ['data' => $data]);
+        return view('transaksi.index', [
+            'data' => $data,
+            'detail' => $detail
+        ]);
     }
 
     /**
