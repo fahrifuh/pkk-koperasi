@@ -67,7 +67,16 @@ class TransaksiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //request data ke api
+        $baseUrl = "http://localhost:8000";
+        $client = new Client();
+        $url = "$baseUrl/api/transaksi/$id";
+        $response = $client->request('GET', $url);
+        $content =  $response->getBody()->getContents();
+        $contentArray = json_decode($content, true);
+        $data = $contentArray['data'];
+
+        return view('transaksi.index', ['data' => $data]);
     }
 
     /**
