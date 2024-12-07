@@ -15,8 +15,10 @@
         </div>
     @endif
 
-    <a href="{{ url('data-anggota/transaksi/create') }}" class="btn btn-primary mb-4">Tambah Data</a>
-    
+    @if (Auth::check() && Auth::user()->role == 'admin')
+        <a href="{{ url('data-anggota/transaksi/create') }}" class="btn btn-primary mb-4">Tambah Data</a>
+    @endif
+
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
