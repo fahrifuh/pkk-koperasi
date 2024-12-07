@@ -41,9 +41,13 @@ class WargaController extends Controller
             'nik' => $request->nik,
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            'no_kk' => $request->no_kk 
+            'no_kk' => $request->no_kk
         ];
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 22fda59 (perbaikan code)
         $baseUrl = "http://localhost:8000";
         $client = new Client();
         $url = "$baseUrl/api/data-warga";
