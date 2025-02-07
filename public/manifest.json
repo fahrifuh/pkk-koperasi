@@ -1,0 +1,23 @@
+{
+    "name": "RW 14 Cihurip",
+    "short_name": "R14C",
+    "description": "Akses Informasi mengenai RW 14 Cihurip dan Akses Koperasi RW 14 Cihurip",
+    "display": "standalone",
+    "orientation": "portrait",
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "icons": [
+        {
+            "src": "img/logo-rw.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "img/logo-koperasi.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
