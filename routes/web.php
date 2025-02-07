@@ -14,6 +14,9 @@
         Route::get('/', function () {
             return view('guest.index');
         });
+        Route::get('/visi-misi', function () {
+            return view('guest.visi');
+        });
         Route::get('/ronda', function () {
             return view('guest.ronda');
         });
@@ -33,6 +36,8 @@
         Route::resource('data-warga', WargaController::class);
         Route::resource('data-anggota/transaksi', TransaksiController::class)->except(['show']);
         Route::get('/data-anggota/pdf', [AnggotaKoperasiController::class, 'generatePDF'])->name('data-anggota.pdf');
+        Route::get('/data-anggota/transaksi/pdf/{id}', [TransaksiController::class, 'generatePdfById']);
+        Route::get('/data-anggota/transaksi/pdf', [TransaksiController::class, 'generatePdf']);
     });
 
     Route::middleware(['auth', RoleCheck::class . ':admin,warga'])->group(function () {
