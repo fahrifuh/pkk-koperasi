@@ -19,15 +19,12 @@ class TransaksiController extends Controller
     {
         $data = DB::table('transaksi')
             ->distinct()
-            // ->join('detail_transaksi', 'transaksi.id', '=', 'detail_transaksi.id_transaksi')
             ->join('anggota_koperasi', 'transaksi.id_anggota', '=', 'anggota_koperasi.id')
             ->get([
                 'transaksi.id',
                 'anggota_koperasi.nama',
                 'transaksi.tanggal_transaksi',
                 'transaksi.jumlah'
-                // 'detail_transaksi.jenis_simpanan',
-                // 'detail_transaksi.jumlah_simpanan'
             ]);
 
         return response()->json([
@@ -74,7 +71,8 @@ class TransaksiController extends Controller
                 if ($cekTransaksi) {
                     return response()->json([
                         'status' => false,
-                        'message' => 'Anggota sudah membayar simpanan pokok.'
+                        'message' => 'Anggota sudah membayar simpanan pokok.',
+                        'data' => 'Simpanan pokok sudah terbayar.'
                     ]);
                 }
             }

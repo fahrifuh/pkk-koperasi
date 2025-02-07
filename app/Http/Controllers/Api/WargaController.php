@@ -41,7 +41,7 @@ class WargaController extends Controller
                 'status' => false,
                 'message' => 'Data tidak valid  !',
                 'data' => $validator->errors()
-            ], 401);
+            ]);
         }
 
         $dataWarga = new Warga();
@@ -104,14 +104,23 @@ class WargaController extends Controller
             'no_kk' => 'required|integer'
         ];
 
-        $validator = Validator::make($request->all(), $rules);
+        $messages = [
+            'nik.required' => 'NIK harus diisi!',
+            'nik.integer' => 'NIK harus angka, dimulai dari angka selain 0!',
+            'nama.required' => 'Nama harus diisi!',
+            'alamat.required' => 'Alamat harus diisi!',
+            'no_kk.required' => 'Nomor KK harus diisi!',
+            'no_kk.integer' => 'Nomor KK harus angka, dimulai dari angka selain 0!'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data tidak valid  !',
                 'data' => $validator->errors()
-            ], 401);
+            ]);
         }
 
         $data->nik = $request->nik;

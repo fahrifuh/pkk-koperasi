@@ -55,7 +55,7 @@ class AnggotaKoperasiController extends Controller
                 'status' => false,
                 'message' => 'Data tidak valid!',
                 'data' => $validator->errors()
-            ], 401);
+            ]);
         }
 
         $dataAnggota = new AnggotaKoperasi();
