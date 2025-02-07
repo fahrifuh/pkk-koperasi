@@ -94,7 +94,28 @@ class WargaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $param = [
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'no_kk' => $request->no_kk
+        ];
+
+        $baseUrl = "http://localhost:8000";
+        $client = new Client();
+        $url = "$baseUrl/api/data-warga/$id";
+        $response = $client->request('PUT', $url, [
+            'headers' => ['Content-type' => 'application/json'],
+            'body' => json_encode($param)
+        ]);
+        $content =  $response->getBody()->getContents();
+        $contentArray = json_decode($content, true);
+        if ($contentArray['status'] != true) {
+            $err = $contentArray['data'];
+            return redirect()->to('data-warga/' . $id . '/edit')->withErrors($err)->withInput();
+        } else {
+            return redirect()->to('data-warga')->with('success', 'Berhasil tambah data!');
+        }
     }
 
     /**
