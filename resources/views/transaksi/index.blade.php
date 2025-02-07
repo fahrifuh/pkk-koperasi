@@ -17,6 +17,7 @@
 
     @if (Auth::check() && Auth::user()->role == 'admin')
         <a href="{{ url('data-anggota/transaksi/create') }}" class="btn btn-primary mb-4">Tambah Data</a>
+        <a href="{{ url('data-anggota/transaksi/pdf') }}" class="btn btn-warning mb-4" target="_blank">Print Semua Riwayat</a>
     @endif
 
     <div class="card mb-4">
@@ -57,6 +58,7 @@
                                         onclick="showDetail(this)">
                                         Lihat detail
                                     </button>
+                                    <a href="{{ url('data-anggota/transaksi/pdf/' . $item['id']) }}" class="btn btn-sm btn-warning" target="_blank">Print</a>
                                 </td>
                             </tr>
                             @php

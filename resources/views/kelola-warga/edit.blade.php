@@ -18,7 +18,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ url('data-anggota/' . $data['id']) }}" method="POST">
+    <form action="{{ url('data-warga/' . $data['id']) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -38,7 +38,7 @@
         <input type="number" class="form-control border-dark" name="no_kk" id="no_kk" autocomplete="off"
             value="{{ old('no_kk', $data['no_kk']) }}" inputmode="numeric" onmousewheel="return false"
             onkeydown="handleArrowKey(event)" />
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-3 mb-3">
             <button type="submit" class="btn btn-primary mt-3" name="submit">Simpan</button>
             <a href="{{ url('data-warga') }}" class="btn btn-secondary mt-3">Kembali</a>
         </div>

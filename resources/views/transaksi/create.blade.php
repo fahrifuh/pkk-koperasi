@@ -35,7 +35,6 @@
 
         <div class="container-detail">
             <div class="detail-transaksi">
-
                 <label for="jenis" class="form-label mt-3 fw-semibold">Jenis Simpanan</label>
                 <select name="detail[0][jenis]" id="jenis" class="form-select border-dark">
                     <option value="">Pilih jenis...</option>
@@ -55,7 +54,7 @@
             <button type="button" id="tambahDetail" class="btn btn-success my-3" onclick="addDetail()">Tambah Detail
                 Transaksi</button>
             <button type="submit" class="btn btn-primary my-3" name="submit">Simpan</button>
-            <a href="{{ url('data-warga') }}" class="btn btn-secondary my-3">Kembali</a>
+            <a href="{{ url('data-anggota/transaksi') }}" class="btn btn-secondary my-3">Kembali</a>
         </div>
     </form>
 
@@ -69,7 +68,7 @@
 
         let detailCount = 1; // Menghitung jumlah detail transaksi yang ditambahkan
         function addDetail() {
-
+            console.log('tombol diklik');
             document.getElementById('tambahDetail').addEventListener('click', function() {
                 const container = document.querySelector('.container-detail');
                 const newDetail = document.createElement('div');
