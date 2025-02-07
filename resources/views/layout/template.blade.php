@@ -8,6 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>@yield('title')</title>
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
@@ -17,8 +18,9 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="{{ asset('js/jquery/jquery-3.4.1.min.js') }}"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery/jquery-3.4.1.min.js') }}"></script>
+
 </head>
 
 <body class="sb-nav-fixed">
@@ -28,41 +30,44 @@
                 height="90"></a>
         <!-- Sidebar Toggle-->
         <div class="d-flex justify-content-between w-100">
-            <button class="btn btn-link btn-sm order-1 order-lg-0 ms-3 me-4 me-lg-0" id="sidebarToggle"
+            <button class="btn btn-link btn-sm order-1 order-lg-0 ms-md-3 me-4 me-lg-0 ms-auto" id="sidebarToggle"
                 href="#!"><i class="fas fa-bars text-white fs-4"></i></button>
 
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <p class="d-none d-md-block text-white my-auto fs-5">{{ Auth::user()->name }}</p>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw text-white"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ url('/logout') }}">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
+            @if (Auth::check())
+                <!-- Navbar-->
+                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 d-none d-md-flex ">
+                    <p class="text-white my-auto fs-5">{{ Auth::user()->name }}</p>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"><i
+                                class="fas fa-user fa-fw text-white"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ url('/logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            @endif
         </div>
     </nav>
     <div id="layoutSidenav">
-        @if (Auth::check())
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
-                    style="background-color: #1D3D70;">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link text-white" href="{{ url('/') }}">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="background-color: #1D3D70;">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        @if (Auth::check())
+
+                            <a class="nav-link text-white" href="{{ url('/dashboard') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-house text-white"></i></div>
                                 Dashboard
                             </a>
-                            @if (Auth::check() && Auth::user()->role == 'warga')
+                            @if (Auth::user()->role == 'warga')
                                 <a class="nav-link text-white"
                                     href="{{ url('data-anggota/transaksi/' . Auth::user()->id) }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-floppy-disk text-white"></i></div>
                                     Riwayat Transaksi
                                 </a>
                             @endif
-                            @if (Auth::check() && Auth::user()->role == 'admin')
+                            @if (Auth::user()->role == 'admin')
                                 <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
                                     data-bs-target="#warga" aria-expanded="false" aria-controls="collapseLayouts">
                                     <div class="sb-nav-link-icon"><i class="fas fa-user text-white"></i></div>
@@ -97,12 +102,39 @@
                                     </nav>
                                 </div>
                             @endif
+                        @else
+                            <a class="nav-link text-white" href="{{ url('/') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-house text-white"></i></div>
+                                Beranda
+                            </a>
+                            <a class="nav-link text-white" href="{{ url('/visi-misi') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-bullseye text-white"></i></div>
+                                Visi Misi
+                            </a>
+                            <a class="nav-link text-white" href="{{ url('ronda') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-shield-halved text-white"></i></div>
+                                Jadwal Ronda
+                            </a>
+                            <a class="nav-link text-white" href="{{ url('login') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-building-columns text-white"></i></div>
+                                Koperasi
+                            </a>
+                        @endif
 
+                    </div>
+                </div>
+                @if (Auth::check())
+                    <div class="sb-sidenav-footer d-md-none text-white" style="background-color: #1D3D70;">
+                        <div class="small">Login sebagai:</div>
+                        {{ Auth::user()->name }}
+                        <div>
+                            <a class="" href="{{ url('/logout') }}">Logout</a>
                         </div>
                     </div>
-                </nav>
-            </div>
-        @endif
+                @endif
+            </nav>
+        </div>
+
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
