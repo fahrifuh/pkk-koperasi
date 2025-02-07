@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnggotaKoperasi;
+use App\Models\DetailTransaksi;
+use App\Models\Transaksi;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
@@ -44,7 +49,7 @@ class TransaksiController extends Controller
             'tglTransaksi' => $request->tglTransaksi,
             'detail' => $request->detail
         ];
-        
+
         $baseUrl = "http://localhost:8000";
         $client = new Client();
         $url = "$baseUrl/api/transaksi";
@@ -105,5 +110,36 @@ class TransaksiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function generatePdfById(string $id)
+    {
+        $transaksiDetail= DB::table('detail_transaksi')
+        ->join('transaksi', 'transaksi.id', '=', 'detail_transaksi.id_transaksi')
+        ->where('id_transaksi', $id)
+        ->get([
+            'transaksi.tanggal_transaksi',
+            'detail_transaksi.*'
+        ]);
+        $tanggalCetak = Carbon::now('Asia/Jakarta')->format('d F Y, H:i');
+
+        $pdf = Pdf::loadview('pdf.struck', ['transaksiDetail' => $transaksiDetail, 'tanggalCetak' => $tanggalCetak]);
+        return $pdf->stream('transaksi_' . $id . 'pdf');
+    }
+
+    public function generatePDF(){
+        //request data ke api
+        $baseUrl = "http://localhost:8000";
+        $client = new Client();
+        $url = "$baseUrl/api/transaksi";
+        $response = $client->request('GET', $url);
+        $content =  $response->getBody()->getContents();
+        $contentArray = json_decode($content, true);
+        $transaksi = $contentArray['data'];
+        
+        $tanggalCetak = Carbon::now('Asia/Jakarta')->format('d F Y, H:i');
+
+        $pdf = Pdf::loadView('pdf.struck',['transaksi' => $transaksi, 'tanggalCetak' => $tanggalCetak]);
+        return $pdf->stream('riwayat_transaksi.pdf');
     }
 }
